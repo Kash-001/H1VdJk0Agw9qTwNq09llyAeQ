@@ -89,6 +89,7 @@ functions_page.Button({
 functions_page.Toggle({
 	Text = "AUTO SHAKE",
 	Callback = function(Value)
+        print(Value)
 		if Value then
 			while Value do
 				checkForShakeUI()
