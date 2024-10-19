@@ -54,11 +54,11 @@ end
 
 -- MAIN
 local UI = Material.Load({
-	Title = "FishSploit",
+	Title = "FischSploit",
 	Style = 3,
 	SizeX = 300,
 	SizeY = 300,
-	Theme = "Mocha",
+	Theme = "Mauve",
 })
 
 local functions_page = UI.New({
