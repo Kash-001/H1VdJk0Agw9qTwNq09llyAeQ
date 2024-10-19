@@ -86,15 +86,24 @@ functions_page.Button({
 	end
 })
 
-local B = functions_page.Toggle({
-	Text = "AUTO SHAKE",
-	Callback = function(Value)
-	    while Value do
-			checkForShakeUI()
-			wait(0.1)
-		end
-	end,
+functions_page.Toggle({
+    Text = "AUTO SHAKE",
+    Callback = function(Value)
+        local keepShaking = Value
+        
+        coroutine.wrap(function()
+            while keepShaking do
+                checkForShakeUI()
+                wait(0.1)
+
+                if not keepShaking then break end
+            end
+        end)()
+        
+        keepShaking = Value
+    end,
 })
+
 
 -- local B = functions_page.Toggle({
 -- 	Text = "AUTO SHAKE",
