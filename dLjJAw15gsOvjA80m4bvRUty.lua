@@ -58,7 +58,7 @@ local UI = Material.Load({
 	Style = 3,
 	SizeX = 300,
 	SizeY = 300,
-	Theme = "Mauve",
+	Theme = "Crypt",
 })
 
 local functions_page = UI.New({
