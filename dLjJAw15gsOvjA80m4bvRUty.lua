@@ -1,3 +1,7 @@
+-- LOADSTRING
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/Kash-001/H1VdJk0Agw9qTwNq09llyAeQ/refs/heads/main/dLjJAw15gsOvjA80m4bvRUty.lua"))()
+
+
 -- LOCAL
 local player = game.Players.LocalPlayer
 local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kash-001/H1VdJk0Agw9qTwNq09llyAeQ/refs/heads/main/ui-lib.lua"))()
