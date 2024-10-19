@@ -45,7 +45,7 @@ local function GetIngredients()
 			local ESP = Instance.new("Highlight")
 			ESP.FillTransparency = 0
 			ESP.Parent = child
-			wait(0.2)
+			wait(0.1)
 		end
 	end
 	game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(LastPos))
@@ -58,7 +58,7 @@ local UI = Material.Load({
 	Style = 3,
 	SizeX = 300,
 	SizeY = 300,
-	Theme = "Jester",
+	Theme = "Mocha",
 })
 
 local functions_page = UI.New({
