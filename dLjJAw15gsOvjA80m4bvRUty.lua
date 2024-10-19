@@ -1,6 +1,13 @@
 -- LOADSTRING
 -- loadstring(game:HttpGet("https://raw.githubusercontent.com/Kash-001/H1VdJk0Agw9qTwNq09llyAeQ/refs/heads/main/dLjJAw15gsOvjA80m4bvRUty.lua"))()
 
+_G.version = "V1.0.1"
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "FishSploit";
+    Text = _G.version;
+    Duration =  5;
+})
 
 -- LOCAL
 local player = game.Players.LocalPlayer
