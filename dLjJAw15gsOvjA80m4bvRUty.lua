@@ -1,9 +1,10 @@
 -- LOCAL
 local player = game.Players.LocalPlayer
-local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Fz-YZF/fA65r2U_NyPT4AR/refs/heads/main/Module.lua"))()
+local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kash-001/H1VdJk0Agw9qTwNq09llyAeQ/refs/heads/main/ui-lib.lua"))()
 local baits = workspace.Parent:GetService("ReplicatedStorage").playerstats:FindFirstChild(player.Name).Stats.bait
 local UserInputService = game:GetService("UserInputService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
+local noclipEnabled = false
 
 -- FUNCTIONS
 local function checkForShakeUI()
@@ -26,7 +27,6 @@ local function GetIngredients()
 	local LastPos = game.Players.LocalPlayer.Character.PrimaryPart.Position
 	for _, child in path:GetChildren() do
 		if child:FindFirstChild("PickupPrompt") then
-			print('Ingredient trouver')
 			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 			child.PickupPrompt.HoldDuration = 0
 			local ESP = Instance.new("Highlight")
@@ -43,33 +43,37 @@ end
 
 -- MAIN
 local UI = Material.Load({
-	Title = "El patron of FISCH",
+	Title = "FishSploit",
 	Style = 3,
 	SizeX = 300,
-	SizeY = 180,
-	Theme = "Dark",
+	SizeY = 300,
+	Theme = "Jester",
 })
 
-local Page = UI.New({
+local functions_page = UI.New({
 	Title = "Functions"
 })
 
-local Page2 = UI.New({
+local ilsandstps_page = UI.New({
 	Title = "Islands TPs"
 })
 
-local Page3 = UI.New({
-	Title = "MISC TPs"
+local misctps_page = UI.New({
+	Title = "Misc TPs"
 })
 
-Page.Button({
+local player_page = UI.New({
+	Title = "Player"
+})
+
+functions_page.Button({
 	Text = "SELL INVENTORY",
 	Callback = function()
 		workspace.Parent:GetService("ReplicatedStorage").events.selleverything:InvokeServer()
 	end
 })
 
-Page.Button({
+functions_page.Button({
 	Text = "GET ALL BAITS",
 	Callback = function()
 		for _, bait in baits:GetChildren() do
@@ -80,7 +84,7 @@ Page.Button({
 
 IsOn = false
 
-local B = Page.Toggle({
+local B = functions_page.Toggle({
 	Text = "AUTO SHAKE",
 	Callback = function(Value)
 		if Value == true then
@@ -96,14 +100,14 @@ local B = Page.Toggle({
 	Enabled = false
 })
 
-Page.Button({
+functions_page.Button({
 	Text = "GET INGREDIENTS",
 	Callback = function()
 		GetIngredients()
 	end
 })
 
-Page2.Button({
+ilsandstps_page.Button({
 	Text = "Moosewood",
 	Callback = function()
 		local teleportPosition = Vector3.new(491.800537109375, 152.99990844726562 , 343.6178283691406)
@@ -111,7 +115,7 @@ Page2.Button({
 	end
 })
 
-Page2.Button({
+ilsandstps_page.Button({
 	Text = "Terrapin Island",
 	Callback = function()
 		local teleportPosition = Vector3.new(-107.57418060302734, 172.06167602539062, 2001.5711669921875)
@@ -119,7 +123,7 @@ Page2.Button({
 	end
 })
 
-Page2.Button({
+ilsandstps_page.Button({
 	Text = "Sunstone Island",
 	Callback = function()
 		local teleportPosition = Vector3.new(-960.9772338867188, 232.12721252441406, -1031.8193359375)
@@ -127,7 +131,7 @@ Page2.Button({
 	end
 })
 
-Page2.Button({
+ilsandstps_page.Button({
 	Text = "Roslit Bay",
 	Callback = function()
 		local teleportPosition = Vector3.new(-1547.0203857421875, 140, 697.5581665039062)
@@ -135,7 +139,7 @@ Page2.Button({
 	end
 })
 
-Page2.Button({
+ilsandstps_page.Button({
 	Text = "SnowCap Island",
 	Callback = function()
 		local teleportPosition = Vector3.new(2726.198486328125, 156.32211303710938, 2425.17626952125)
@@ -143,7 +147,7 @@ Page2.Button({
 	end
 })
 
-Page2.Button({
+ilsandstps_page.Button({
 	Text = "Mushgrove Swamp",
 	Callback = function()
 		local teleportPosition = Vector3.new(2633.779541015625, 131.00286865234375, -638.99365234375)
@@ -151,10 +155,38 @@ Page2.Button({
 	end
 })
 
-Page3.Button({
+misctps_page.Button({
 	Text = "Keepers Altar",
 	Callback = function()
 		local teleportPosition = Vector3.new(1368.342529296875, -765.7269287109375, -76.91497039794922)
 		player.Character:SetPrimaryPartCFrame(CFrame.new(teleportPosition))
 	end
 })
+
+local B = player_page.Toggle({
+	Text = "Noclip",
+	Callback = function(Value)
+		if Value == true then
+            noclipEnabled = state
+		elseif Value == false then
+			noclipEnabled = state
+		end
+	end,
+})
+
+noclipEnabled = state
+
+-- Noclip functionality
+game:GetService("RunService").Stepped:Connect(function()
+    if noclipEnabled then
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        if character then
+            for _, part in ipairs(character:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.CanCollide = false
+                end
+            end
+        end
+    end
+end)
