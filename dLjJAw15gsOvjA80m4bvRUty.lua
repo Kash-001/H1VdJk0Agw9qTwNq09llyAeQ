@@ -93,38 +93,23 @@ functions_page.Button({
 	end
 })
 
+isAutoShakeEnabled = false
+
 functions_page.Toggle({
-	Text = "AUTO SHAKE",
-	Callback = function(Value)
-        print(Value)
-		if Value then
-			while Value do
-				checkForShakeUI()
-				wait(0.1)
-				if not Value then break end
-			end
-		end
-	end,
-	Enabled = false
+    Text = "AUTO SHAKE",
+    Callback = function(state)
+        if state then
+            isAutoShakeEnabled = true
+
+            while isAutoShakeEnabled do
+                checkForShakeUI()
+                wait(0.1)
+            end
+        else
+            isAutoShakeEnabled = false
+        end
+    end
 })
-
-
--- IsOn = true
--- local B = functions_page.Toggle({
--- 	Text = "AUTO SHAKE",
--- 	Callback = function(Value)
--- 		if Value == true then
--- 			IsOn = true
--- 			while Value do
--- 				checkForShakeUI()
--- 				wait(0.1)
--- 			end
--- 		elseif Value == false then
--- 			IsOn = false
--- 		end
--- 	end,
--- 	Enabled = false
--- })
 
 functions_page.Button({
 	Text = "GET INGREDIENTS",
