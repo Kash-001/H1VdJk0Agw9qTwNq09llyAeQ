@@ -9,6 +9,9 @@ local baits = workspace.Parent:GetService("ReplicatedStorage").playerstats:FindF
 local UserInputService = game:GetService("UserInputService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local noclipEnabled = false
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:FindFirstChildOfClass("Humanoid")
+local hrp = character:FindFirstChild("HumanoidRootPart")
 
 -- FUNCTIONS
 local function checkForShakeUI()
@@ -31,14 +34,11 @@ local function GetIngredients()
 	local LastPos = game.Players.LocalPlayer.Character.PrimaryPart.Position
 	for _, child in path:GetChildren() do
 		if child:FindFirstChild("PickupPrompt") then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 			child.PickupPrompt.HoldDuration = 0
 			local ESP = Instance.new("Highlight")
 			ESP.FillTransparency = 0
 			ESP.Parent = child
-			local POS = child.PrimaryPart.Position
-			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(POS))
-			wait(3)
+			wait(0.2)
 		end
 	end
 	game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(LastPos))
@@ -86,23 +86,31 @@ functions_page.Button({
 	end
 })
 
-IsOn = false
-
 local B = functions_page.Toggle({
 	Text = "AUTO SHAKE",
 	Callback = function(Value)
-		if Value == true then
-			IsOn = true
-			while IsOn == true do
-				checkForShakeUI()
-				wait(0.1)
-			end
-		elseif Value == false then
-			IsOn = false
+	    while Value do
+			checkForShakeUI()
+			wait(0.1)
 		end
 	end,
-	Enabled = false
 })
+
+-- local B = functions_page.Toggle({
+-- 	Text = "AUTO SHAKE",
+-- 	Callback = function(Value)
+-- 		if Value == true then
+-- 			IsOn = true
+-- 			while Value do
+-- 				checkForShakeUI()
+-- 				wait(0.1)
+-- 			end
+-- 		elseif Value == false then
+-- 			IsOn = false
+-- 		end
+-- 	end,
+-- 	Enabled = false
+-- })
 
 functions_page.Button({
 	Text = "GET INGREDIENTS",
@@ -110,6 +118,12 @@ functions_page.Button({
 		GetIngredients()
 	end
 })
+
+
+
+------------------------------------------------------------------------------
+----------------------------------ISLANDS-------------------------------------
+------------------------------------------------------------------------------
 
 ilsandstps_page.Button({
 	Text = "Moosewood",
@@ -159,6 +173,14 @@ ilsandstps_page.Button({
 	end
 })
 
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------MISC--------------------------------------
+------------------------------------------------------------------------------
+
 misctps_page.Button({
 	Text = "Keepers Altar",
 	Callback = function()
@@ -167,7 +189,12 @@ misctps_page.Button({
 	end
 })
 
-local B = player_page.Toggle({
+
+------------------------------------------------------------------------------
+----------------------------------PLAYERS-------------------------------------
+------------------------------------------------------------------------------
+
+player_page.Toggle({
 	Text = "Noclip",
 	Callback = function(Value)
 		if Value == true then
@@ -178,7 +205,29 @@ local B = player_page.Toggle({
 	end,
 })
 
-noclipEnabled = state
+player_page.Slider({
+	Text = "Player Walkspeed",
+	Callback = function(Value)
+		if humanoid then
+            humanoid.WalkSpeed = Value
+        end
+	end,
+	Min = 16,
+	Max = 200,
+	Def = 16
+})
+
+player_page.Slider({
+	Text = "Player Jumppower",
+	Callback = function(Value)
+		if humanoid then
+            humanoid.JumpPower = Value
+        end
+	end,
+	Min = 50,
+	Max = 500,
+	Def = 50
+})
 
 -- Noclip functionality
 game:GetService("RunService").Stepped:Connect(function()
