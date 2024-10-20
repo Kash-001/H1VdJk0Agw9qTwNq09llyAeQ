@@ -195,7 +195,7 @@ misctps_page.Button({
 
 player_page.Toggle({
 	Text = "Noclip",
-	Callback = function(Value)
+	Callback = function(state)
 		if Value == true then
             noclipEnabled = state
 		elseif Value == false then
